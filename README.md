@@ -1,4 +1,4 @@
-# Movie App with React Native & Expo
+# [Movie App with React Native & Expo](https://github.com/monochandan/React-Mobile-Apps/tree/main/movie-app)
 
 A mobile app for discovering, searching, and viewing trending movies using TMDB API and Appwrite for backend services.
 
