@@ -23,7 +23,7 @@ https://github.com/user-attachments/assets/3a892b6b-02b8-402c-b3b6-cc9b0724eae1
 - **Status Bar**: Hidden for immersive experience using `expo-status-bar`
 
 
-# [Real Estate with React Native & Expo](https://github.com/monochandan/React-Mobile-Apps/tree/main/movie-app)
+# [Real Estate with React Native & Expo](https://github.com/monochandan/React-Mobile-Apps/tree/main/real-Estate)
 
 
 https://github.com/user-attachments/assets/c52d4f6c-e982-4f1a-8120-7c1846b5d96c
