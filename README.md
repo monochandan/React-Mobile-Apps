@@ -26,16 +26,6 @@ https://github.com/user-attachments/assets/3a892b6b-02b8-402c-b3b6-cc9b0724eae1
 # [Real Estate with React Native & Expo](https://github.com/monochandan/React-Mobile-Apps/tree/main/movie-app)
 
 
-
-
-
-
-
-
-https://github.com/user-attachments/assets/c52d4f6c-e982-4f1a-8120-7c1846b5d96c
-
-
-
 https://github.com/user-attachments/assets/c52d4f6c-e982-4f1a-8120-7c1846b5d96c
 
 
