@@ -37,6 +37,8 @@ export default function Index() {
     skip: true, // skip specific number of elements as needed
   })
 
+  // console.log(properties)
+
   // to show the dynamic values in cards. properties is tha data. The id of the property.
   const handleCardPress = (id: string) => router.push(`/properties/${id}`);
 

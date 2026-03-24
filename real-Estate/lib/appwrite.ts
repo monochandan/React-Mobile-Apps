@@ -182,10 +182,102 @@ export async function getProperties({
     );
 
     return result.documents;
+
   } catch (error) {
     console.error(error);
     return [];
   }
 }
+
+// function for property details
+export async function getPropertyDetails({
+    propertyId
+}:{
+   propertyId: string;
+}){
+    // query for extracting the property info
+    try{
+        // const buildQuery = [Query.orderDesc("$createdAt")];
+
+        // if(propertyId)
+        //     buildQuery.push(Query.equal("$id", propertyId));
+
+        const result = await databases.getDocument(
+        config.databaseId!,
+        config.propertiesTableId!,
+        propertyId
+        );
+        //console.log("documents:", result.documents);
+        return result
+
+
+    } catch (error)
+    {
+        console.log(error)
+        return null
+    }
+}
+
+
+// export async function gerPropertyImages({ 
+//     propertyId
+// }:{
+//    propertyId: string;
+// }){
+
+//     try{
+
+//         const buildQuery = [Query.orderDesc("$createdAt")];
+
+//         if(propertyId)
+//           buildQuery.push(Query.equal("$id", agent_id));
+
+//         const result = await databases.listDocuments(
+//         config.databaseId!,
+//         config.agentsTableId!,
+//         buildQuery
+//         );
+
+
+//         return result.documents
+
+
+//     }catch (error)
+//     {
+//         console.log(error)
+//         return []
+//     }
+
+// }
+
+export async function getAgentDetails({
+  agent_id
+}:{
+   agent_id: string;
+}){
+    try{
+
+        const buildQuery = [Query.orderDesc("$createdAt")];
+
+        if(agent_id)
+          buildQuery.push(Query.equal("$id", agent_id));
+
+        const result = await databases.listDocuments(
+        config.databaseId!,
+        config.agentsTableId!,
+        buildQuery
+        );
+
+
+        return result.documents
+
+
+    }catch (error)
+    {
+        console.log(error)
+        return []
+    }
+}
+
 
 
