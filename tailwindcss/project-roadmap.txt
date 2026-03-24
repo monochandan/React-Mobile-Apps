@@ -1,0 +1,64 @@
+- Tailwind CSS
+[
+    - https://play.tailwindcss.com/
+    - understand the flexbox: https://flexboxfroggy.com/
+    - understand the grid: https://cssgridgarden.com/
+
+    - margin : m{t|r|b|l}-{size} [external spacing]
+    - padding : p{t|r|b|l}-{size} [internal spacing]
+    - height: h-{size|full}
+    - width: w-{size|full}
+    - text-[30px], text-[#FFFFFFF], w-[762px], h-[1080px] bg-[#121212]
+    - before:content-['jsm']
+
+
+]
+- JIT ( just in time compiler )
+
+- layouts, flexbox (structuring UI)
+[
+    - css properties: display, position, overflow.
+    - relative: move property relative to its normal position.
+    - absolute: moves the property to its nearest parent.
+    - fix: fix the element in the view port, so it does not scroll.
+    - sticky: untill scrolled to the certain pont, it behaves normally.
+
+    - display: block --> takes full width.
+    - display: inline --> behave like text, no width and hght.
+    - display: flex --> enable flex box
+    - display: grid --> enable css grid property.
+]
+
+- media queries and responsive design
+[
+    - https://tailwindcss.com/docs/responsive-design
+]
+- dark mode in  Tailwind
+[
+    
+]
+- custome style and reusability
+[
+    - how to declare theme variables: https://tailwindcss.com/docs/theme
+    - functions and directives (e.g- @theme) https://tailwindcss.com/docs/functions-and-directives.
+
+    - lets say a simple button but has very long class name
+        - option 1 : break layouts into specific components. (directives: base, components, utilities).
+               - base: apply style globally.
+               - components: style specific components and reusable elements.
+               - utilities: atomic styles for individual properties.
+               - @apply: add css style into tailwind css.
+               - @layer : @layer theme, base, components, utilities
+
+
+]
+
+- component libraries , customize with tailwindcss + shadcian UI
+[
+    - https://ui.shadcn.com/docs/components
+]
+
+- tips and tricks
+[
+    
+]

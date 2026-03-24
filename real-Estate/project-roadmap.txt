@@ -1,0 +1,186 @@
+- links
+[
+   - https://www.nativewind.dev/docs/getting-started/installation
+]
+
+- https://appwrite.io/
+[
+    - create a project.
+]
+
+- use EXPO framework
+[
+    - run this command in the terminal : npx create-expo-app@latest ./
+    - set up environment for mobile development : https://docs.expo.dev/get-started/set-up-your-environment/
+    - run npx expo start
+]
+- Meet the new people
+[
+    tsconfig.json - contains the rules, which enforce to the typescript for type safety.
+    README.md - contains info about the project.
+    package.json, package-lock.json - contains project scripts, dependdencies and additional metadata.
+    app.json - contains the configuration options of the project and often called app config.
+                This options change the behaivour of the project, ahile developing, building, 
+                submitting and updating the project.
+    .gitignore - ignore git related things.
+    Boiler plate codes - /hooks, /constants, /components, /assets, /app. 
+]
+- Reset the project to bear minimum
+[
+    - stop the running server
+    - npm run reset-project
+    - Do you want to move existing files to /app-example instead of deleting them? (Y/n): n
+    - run npx expo start
+
+
+]
+
+- set up the project route
+[
+  - /app/sign-in.tsx  
+  - create 2 new folders inside app:  /app/(root)/(tabs)
+  - move index.tsx inside the root/tabs folder
+  - create files: /app/(root)/(tabs)/profile.tsx
+  - /app/(root)/(tabs)/explore.tsx
+
+  - for property details
+    - create a new folder /app/(root)/properties/
+    - create new file: /app/(root)/properties/[id].tsx
+
+]
+- NativeWind <---> TailWind
+[
+    - https://www.nativewind.dev/docs/getting-started/installation
+]
+
+- Setup Font and Assets
+[
+    - create assets, components, constants in root folder.
+    - app.json --> inside plugins --> add fonts.
+    - add in the _layout.tsx --> font logic
+    - EXTRA 
+            - I have created fonts.ts, colors.ts for the accescing the value in the style sheet
+    - 
+]
+
+- setup Auth :https://appwrite.io/docs/products/auth/oauth2
+[
+    - appwrite : https://appwrite.io/docs/quick-starts/react-native
+        - project name : real-state
+        - app name: realState
+        - package name: com.SoloCreator.realState
+        - npx expo install react-native-appwrite react-native-url-polyfill
+        - go to Auth --> Google OAuth2 settings --> enable -- > copy uri -->
+            Go to console.cloud.google.com --> realstate-490014 --> select the project
+            --> head over to google auth platform --> clients --> setup --> Metrics
+            --> Create OAuth Client --> Web Application --> Authorized Redirect URI --> paste the uri 
+            --> create --> copy the client ID and secret id --> add to teh appwrite.
+
+        - create a platform --> realstate-web --> identifier *
+]
+
+- set Up SDk and AUTH functions
+[
+   - /root/lib/appwrite.ts
+   - https://appwrite.io/docs/quick-starts/react-native
+    - creting seperate ts file to add the required data as constat in the appwrirte.ts
+
+    - expo modules for handling deep links and rediret URLS (after login successfully): https://docs.expo.dev/versions/latest/sdk/linking/
+
+    - create function for signIn, signOut and getUserInfo in appwrite.ts file.
+
+]
+
+- setUp integrated authentication function
+[
+    - in sign-in.tsx, complete the handleLogin() function.
+    - create lib/useAppwrite.ts : react hook for managing appwrite API calls with state and error handling.
+    - create lib/global-provider.tsx: protect the string and properly redirect users create a 
+                                        global auth provider,  fetch the current user,  
+                                        if the user is not there, than redirect to the signin screen,
+                                        if user is there, direct to the home screen.
+]
+
+- appwrite.ts
+[
+    - login, logout, getuser
+]
+- useAppwrite.ts
+[
+    - fetch the session to see if the user is login or not 
+        react hook for managing appwrite API calls with state and error handling.
+]
+- global-provider.tsx
+[
+    - global auth provider and fetch the current user, if the user is there, than redirect to the home screen
+        or if the user is not there, redirect to the signin screen 
+]
+
+- we have to check this in every page. So instead of doing this in every components
+  make a seperate file in parent components to check is user is logged in or not.
+
+if(!loading && isLogged) return <Redirect href="/"/>
+[
+    - create /app/(root)/_layout.tsx
+    - The _layout.tsx file in React Native (with Expo Router) defines 
+      shared UI and navigation structure for all screens in its directory (/properties and /tabs).  
+      It acts as a wrapper that controls layout, navigation (stacks, tabs), 
+      providers (e.g., auth, theme), and initialization logic (e.g., fonts, splash screen).
+    - this layout is for /properties and /tabs
+    - all the pages users have to be authenticated, to be able to see those pages
+]
+
+- implements tabs navigation system
+[
+    -/app/(root)/(tabs)/_layout.tsx
+]
+
+- profile component
+[
+    - auth cycle (logout)
+    - PROBLEM, have to signin 2 time to enter in the index page. 
+
+    - created a at root/component (we need a search component in multiple pages so....)
+    - using for search : https://www.npmjs.com/package/use-debounce
+]
+
+- cards component
+[
+    /components/Cards.tsx
+]
+
+- dartabase integration
+[
+    - Appwrite
+    - create different collection in the appwrite -> databases
+    - copy db id  -> addin env file.
+    - create table -> add table id in env file.
+    - change the appwrite.ts
+]
+
+- fetching the data from database
+[
+    - seeding the databaset
+    - /lib/data.ts
+    - create button in the index.tsx -> seed the data -> remove the button
+    - add functionalities in appwrite.ts to fetch the data and show in the index.tsx 
+]
+- real data Show in the page 
+[
+    - update cards.tsx and index.tsx
+    - when there is no data to show (add NoResults.tsx)
+        - for cards show no result
+        - for featurecard hide
+    - to be able to search through the properties/indexes
+        - database -> properties > indexes -> create index
+            - 3 indexes 
+                1. column: name, type: fulltext
+                2. column: address, type: fulltext
+                3. column: type, type: fulltext
+]
+
+- explore.tsx implementation
+[
+    - copy entire index.tsx
+    - Change the ListHeaderComponent
+]

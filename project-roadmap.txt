@@ -1,0 +1,143 @@
+- links
+[
+   - https://www.nativewind.dev/docs/getting-started/installation
+]
+
+- https://appwrite.io/
+[
+    - create a project.
+]
+
+- use EXPO framework
+[
+    - run this command in the terminal : npx create-expo-app@latest ./
+    - set up environment for mobile development : https://docs.expo.dev/get-started/set-up-your-environment/
+    - run npx expo start
+]
+- Meet the new people
+[
+    tsconfig.json - contains the rules, which enforce to the typescript for type safety.
+    README.md - contains info about the project.
+    package.json, package-lock.json - contains project scripts, dependdencies and additional metadata.
+    app.json - contains the configuration options of the project and often called app config.
+                This options change the behaivour of the project, ahile developing, building, 
+                submitting and updating the project.
+    .gitignore - ignore git related things.
+    Boiler plate codes - /hooks, /constants, /components, /assets, /app. 
+]
+- Reset the project to bear minimum
+[
+    - stop the running server
+    - npm run reset-project
+    - Do you want to move existing files to /app-example instead of deleting them? (Y/n): n
+    - run npx expo start
+
+
+]
+- install additional packages for design
+[
+    - Style your React Native apps using Tailwind CSS. https://www.nativewind.dev/docs/getting-started/installation
+        - npm install nativewind tailwindcss react-native-reanimated react-native-safe-area-context
+        - npx tailwindcss init
+        - create app/globals.css and add:
+            @tailwind base;
+            @tailwind components;
+            @tailwind utilities;
+        - run npx expo customize metro.config.js
+        - copy code into it from teh nativewind page.
+        - import './globals.css'; in _layout.tsx
+        - create file in root directory nativewind-env.d.ts and add this line - /// <reference types="nativewind/types" />
+        - npx start --clear
+
+]
+
+- set tailwind.config.js
+[
+    - some primary values for entire app
+    -
+]
+
+- routing and navigation
+[
+    - created new file onboarding in app folder (navigate to the new page).
+    - created movie folder (for routing)
+        - /movie/[id].tsx
+        - extract route params information
+        - group the app pages (e.g - some page will show nav bar, those will be groups.)
+            - https://docs.expo.dev/versions/v55.0.0/sdk/ui/swift-ui/group/
+]
+
+- TMD
+[
+    - create account in TMD
+    - mono_chandan, monochandan95@gmail.com, A1b2c3*50$#
+    - API_read_access_token: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYWMwMjNlZjVlZDk5NjBlZjY4MmJjMzJmNjAzMGZkMSIsIm5iZiI6MTc3MzAwOTgzNy44MzgsInN1YiI6IjY5YWRmYmFkOTZlNzExMDdkZWMxYzZmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.hMr4Z2TpsumKav7Iy6I7NCUCBU8vuqzhJgqNpcz5O3s
+    - API_KEY: 1ac023ef5ed9960ef682bc32f6030fd1
+    - copy the code for discover-movie
+    - create /services/api.ts
+    - create .env file at the root folder
+    - copy the code from TMD in api.ts
+    - modify the code for featching the movie.
+    - custome hook for efficient featching.
+]
+- TMD -  CUSTOME HOOK
+[
+    - Create services/useFtech.ts
+]
+- Fetch the movie data
+[
+    - index.tsx
+]
+- create new component moviecard
+[
+    - create /components/MovieCard.tsx
+    - pass the right prop to it from index.tsx
+    - show them and design them.
+]
+- search screen
+[
+    - search.tsx
+    - used custome hook to fetch the data from api
+    - used use effect to improve the api calling for typing every single letters.
+    - used flatlist components to what to show  when the movied found or not based on the user query. 
+]
+
+- implement custome algorithm
+[
+    - Backend As a Service (appwrite) : https://appwrite.io/docs
+    - follow this instructions: https://appwrite.io/docs/quick-starts/react-native
+    - create database in appwrite : https://appwrite.io/docs/products/databases/databases
+    - database name: movies
+    - movieground
+    - com.soloCreator.movieground
+    - create darabase movies --> table metrics --> created columns --> setting --> permission --> add role --> Any --> enable C R U D --> done !!
+    - /services/appwrite.ts
+    - update the useEffect function from search.tsx 
+]
+- trendings movies on the top
+[
+    - /appwrite.ts/getTrendingMovies()
+]
+- designing trending card
+[
+    - npm install --save @react-native-masked-view/masked-view
+]
+- hiding the status (battery and others) from the top of the screen
+[
+    - app/_layout.tsx
+    - StatusBar : https://reactnative.dev/docs/statusbar
+]
+
+- fetch Movie details
+[
+    - services/api.ts --> new function fetchMovieDetails()
+]
+
+- profile
+[
+
+]
+- saved
+[
+    
+]
