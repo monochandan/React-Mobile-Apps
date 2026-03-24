@@ -29,5 +29,20 @@ https://github.com/user-attachments/assets/3a892b6b-02b8-402c-b3b6-cc9b0724eae1
 https://github.com/user-attachments/assets/c52d4f6c-e982-4f1a-8120-7c1846b5d96c
 
 
+A full-stack real estate application built with React Native, Expo, Appwrite, and Nativewind, enabling users to browse, search, and explore properties seamlessly. 
+
+🚀 Features
+- **Authentication**: Google OAuth login via Appwrite.
+- **Navigation**: Tab-based and dynamic screen routing using Expo Router.
+- **UI Styling**: Tailwind CSS with Nativewind for responsive design. 
+- **Fonts & Assets**: Custom fonts and icons setup.
+- **Home Screen**: Displays latest and recommended properties. 
+- **Explore Screen**: Filter and discover properties by type, price, location. 
+- **Property Details**: Full view with images, pricing, features, and agent info. 
+- **Profile Screen**: User profile management and settings. 
+- **Database**: Appwrite-powered backend with seeded property data. 
+- **Data Fetching**: Centralized useAppwrite custom hook for CRUD operations.
+
+
 
 
