@@ -1,0 +1,4 @@
+git switch -c activityIndicatorSimulator //Nswitch to a new branch named activityIndicatorSimulator
+
+
+git switch main // switch to existing branch to push into it...

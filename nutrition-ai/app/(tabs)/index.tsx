@@ -1,98 +1,242 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Image, View, ScrollView, Text, TouchableOpacity, FlatList } from 'react-native';
+import React from 'react';
+import dayjs from "dayjs";
+import {Link} from 'expo-router';
+import {camera} from "expo-camera";
+import * as ImagePicker from "expo-image-picker";
+import {useState} from "react";
+import {icons} from "@/constants/icons";
+// import folder from "@/constants/icons";
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import images from "@/constants/images";
+import {HOME_USER, calorie_count, HEALTH_STATS, UPCOMING_SUBSCRIPTIONS, HOME_SUBSCRIPTIONS, MEAL_PLANS} from "@/constants/data";
+import {SafeAreaView as RNSafeAreaView} from "react-native-safe-area-context";
+import {styled} from "nativewind";
 
-export default function HomeScreen() {
+import ListHeading from "@/components/ListHeading"
+import UpcomingSubscriptionCard from "@/components/UpcomingSubscriptionCard"
+
+import {AnimatedCircularProgress} from 'react-native-circular-progress';
+import SubscriptionCard from '@/components/SubscriptionCard';
+
+
+const SafeAreaView = styled(RNSafeAreaView);
+
+const index = () => {
+
+    const [expandedSubscriptionId, setExpandedSubscriptionId] = useState<string | null>(null);
+
+    // const completed = 700;
+    // const total = 1200;
+    const currentDate = new Date();
+    //const localDate = currentDate.toLocaleDateString()
+    // console.log(localDate)
+
+    const percentage = (calorie_count.completed / calorie_count.total) * 100;
+    // useState <any>([]);
+    const [selectedImage, setSelectedImage] = useState <any>([]);
+
+    // const pickImageAsync = async () => {
+    //     let result = await ImagePicker.launchImageLibraryAsync({
+    //         mediaTypes: ["images"],
+    //         allowMultipleSelection: false,
+    //         selectionLimit: 1,
+    //         quality: 1,
+    //         allowsEditing: true,
+    //     });
+
+    //     if (!result.canceled) {
+    //         const uris = result.assets.map((assets) => assets.uri);
+
+    //         setSelectedImage((prev: any) => [...prev, ...uris]);
+    //     }
+    //     else{
+    //         alert("You did not select any image.");
+    //     }
+    // };
+
+
+
+
+    const clickImageAsync = async () => {
+        let result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ["images"],
+            allowMultipleSelection: false,
+            selectionLimit: 1,
+            quality: 1,
+            allowsEditing: true,
+        });
+
+        if (!result.canceled) {
+            const uris = result.assets.map((assets) => assets.uri);
+
+            setSelectedImage(() => [...uris]);
+        }
+        else{
+            alert("You did not select any image.");
+        }
+    };
+
+
+    console.log("Selected Images:", selectedImage);
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <SafeAreaView className="flex-1 bg-background p-5">
+                    <FlatList
+                        ListHeaderComponent={() =>
+                            <>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+                                <View className="home-header">
+                                        <View className="home-user">
+                                                <Image source={images.my_avatar} className="home-avatar"/>
+                                                <Text className="home-user-name">{dayjs(currentDate).format('MM/DD')}</Text>
+                                                {/* <Text className="home-date-label">{dayjs(currentDate).format('MM/DD')}</Text> */}
+                                        </View>
+
+                                        <View className="flex-row item-center gap-5">
+                                            <Image source={icons.add} className="home-add-icon"/>
+                                            <Image source={icons.imgscan} className="home-imscanner-icon"/>
+                                        </View>  
+                                        
+                                 </View>
+
+
+                                <View className="home-daily-intake-card flex-row">
+                                    <View className="flex-1 gap-5 mr-2 justify-between">
+                                        <Text className="home-date-label">Calories today: {calorie_count.total}</Text>
+                                        {/* <Text className="home-date-label">{dayjs(currentDate).format('MM/DD')}</Text> */}
+
+                                            <View className="flex-row justify-center gap-1">
+                                                {/* <Text className="home-date-label">Date</Text>
+                                                <Text className="home-date-label">Date</Text>
+                                                <Text className="homes-date-label">Date</Text> */}
+                                                <AnimatedCircularProgress 
+                                                        size={70} 
+                                                        width={7}
+                                                        fill={percentage}
+                                                        tintColor="#82c5e4"
+                                                        onAnimationComplete= {() => console.log('finished today calorie bar')}
+                                                        backgroundColor="#edeef0"
+                                                    >
+                                                        {
+                                                            () => (
+                                                            <Text>
+                                                                fat
+                                                            </Text>
+                                                            )
+                                                        }
+                                                </AnimatedCircularProgress>
+
+                                                <AnimatedCircularProgress 
+                                                    size={70} 
+                                                    width={7}
+                                                    fill={percentage}
+                                                    tintColor="#a4f41a"
+                                                    onAnimationComplete= {() => console.log('finished today calorie bar')}
+                                                    backgroundColor="#f4f7f9"
+                                                >
+                                                    {
+                                                        () => (
+                                                        <Text>
+                                                            carb 
+                                                        </Text>
+                                                        )
+                                                    }
+                                                </AnimatedCircularProgress>
+
+                                                <AnimatedCircularProgress 
+                                                        size={70} 
+                                                        width={7}
+                                                        fill={percentage}
+                                                        tintColor="#ae23c0"
+                                                        onAnimationComplete= {() => console.log('finished today calorie bar')}
+                                                        backgroundColor="#eff3f8"
+                                                    >
+                                                        {
+                                                            () => (
+                                                            <Text>
+                                                                    protien
+                                                            </Text>
+                                                            )
+                                                        }
+                                                </AnimatedCircularProgress>
+
+                                        </View>
+                                    </View>
+                                    
+                                            <AnimatedCircularProgress 
+                                                    size={150} 
+                                                    width={15}
+                                                    fill={percentage}
+                                                    tintColor="#00e0ff"
+                                                    onAnimationComplete= {() => console.log('finished today calorie bar')}
+                                                    backgroundColor="#f5f5f5"
+                                                >
+                                                    {
+                                                        () => (
+                                                        <Text>
+                                                            { calorie_count.completed } Cal.
+                                                        </Text>
+                                                        )
+                                                    }
+                                            </AnimatedCircularProgress>
+                                            
+                                </View>  
+
+                                <View className="mb-5">
+                                    <ListHeading title="Current Health Status" route="/analysis/healthStatus"/>
+                                    {/* <UpcomingSubscriptionCard data={HEALTH_STATS[0]}/> */}
+                                    {/* <UpcomingSubscriptionCard data={HEALTH_STATS[0]}/>
+                                    <UpcomingSubscriptionCard data={HEALTH_STATS[0]}/> */}
+
+                                    <FlatList
+                                        data={HEALTH_STATS}
+                                        renderItem={({ item }) => (
+                                            <UpcomingSubscriptionCard  {...item }/>
+                                            
+                                        )}
+                                        keyExtractor={(item) => item.id}
+                                        horizontal
+                                        showsHorizontalScrollIndicator={false}
+                                        ListEmptyComponent={<Text className="home-empty-state">Not registered.</Text>}
+
+                                    />
+                                    
+                                </View>
+
+                                <ListHeading title="Today's Meal Plan" route="/analysis/mealPlan"/>
+
+                            
+                            </>
+                        }
+
+                        data={MEAL_PLANS}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({item}) => (
+                            <SubscriptionCard 
+                                { ...item}
+                                expanded={expandedSubscriptionId === item.id}
+                                onPress={() => setExpandedSubscriptionId((currentId) =>(currentId === item.id? null : item.id))}
+                            />
+                        )}
+                        extraData={expandedSubscriptionId}
+                        ItemSeparatorComponent={() => <View className="h-4"/>}
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
+                        ListEmptyComponent={<Text className="home-empty-state">No meal plan yet.</Text>}
+                        contentContainerClassName="pb-30"
+                        contentContainer="pb-30"
+                    />
+                    {/* <SubscriptionCard {...MEAL_PLANS[0]}
+                    expanded = {expandedSubscriptionId === MEAL_PLANS[0].id}
+                    onPress={() => setExpandedSubscriptionId((currentId) => (
+                        currentId === MEAL_PLANS[0].id ? null : MEAL_PLANS[0].id
+                    ))}
+                    /> */}
+
+    </SafeAreaView>
+    
+  )
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+export default index
